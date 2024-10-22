@@ -32,13 +32,10 @@ def screenshot():
         # Launch Pyppeteer and capture screenshot
         
         try:
-            loop = asyncio.get_event_loop()
-        except RuntimeError:  # If there is no event loop in the current thread
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-        
-        # Launch Pyppeteer and capture screenshot
-        screenshot_path = loop.run_until_complete(capture_screenshot(url))
+            asyncio.set_event_loop(asyncio.SelectorEventLoop())
+            screenshot_path = asyncio.get_event_loop().run_until_complete(capture_screenshot(url))
+        except Exception as e:  # If there is no event loop in the current thread
+            return jsonify({"error": str(e)}), 500
         
         return jsonify({"screenshot_path": screenshot_path}), 200
     except Exception as e:
