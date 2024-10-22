@@ -7,9 +7,8 @@ app = Flask(__name__)
 # Function to capture screenshot using Pyppeteer
 async def capture_screenshot(url):
     browser = await launch(handleSIGINT=False,
-                        handleSIGTERM=False,
-                        handleSIGHUP=True,
-                        headless=True)
+                            handleSIGTERM=False,
+                            handleSIGHUP=False)
     page = await browser.newPage()
     await page.goto(url)
     screenshot_path = 'screenshot.png'
