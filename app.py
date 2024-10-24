@@ -15,7 +15,7 @@ def capture_screenshot(url):
     chrome_options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
 
     # Set up the WebDriver (using Chrome)
-    CHROME_PATH = ""
+    CHROME_PATH = "chromedriver-linux64\chromedriver"
     driver = webdriver.Chrome(service=Service(CHROME_PATH), options=chrome_options)
 
     # Navigate to the URL and take a screenshot
