@@ -1,11 +1,14 @@
-from flask import Flask, jsonify, request
+
+
 import asyncio
+from flask import Flask, jsonify, request
 from pyppeteer import launch
 
 app = Flask(__name__)
 
 # Function to capture screenshot using Pyppeteer
 async def capture_screenshot(url):
+    ''' function to capture the screenshot of the website loaded '''
     browser = await launch(handleSIGINT=False,
                             handleSIGTERM=False,
                             handleSIGHUP=False)
@@ -18,11 +21,13 @@ async def capture_screenshot(url):
 
 @app.route('/', methods=['POST','GET'])
 def load():
+    ''' loading page route '''
     return "docker trials"
 
 # API endpoint to take a screenshot
 @app.route('/screenshot', methods=['POST','GET'])
 def screenshot():
+    ''' screenshot api call '''
     try:
         url = 'https://www.tripadvisor.ca/AITripBuilder'
         if not url:
@@ -41,4 +46,4 @@ def screenshot():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
